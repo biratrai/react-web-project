@@ -2,7 +2,8 @@ import firebase from 'firebase'
 
 const config = {
     apiKey: "your-firebase-api",
-    authDomain: "https://firebase-auth-domain",   
+    authDomain: "your-firebase-project.firebaseapp.com",   
+	databaseURL: "https://your-firebase-project.firebaseio.com",
 };
 
 firebase.initializeApp(config);
