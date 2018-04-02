@@ -1,7 +1,7 @@
 import React from 'react';
 import {Avatar, RaisedButton} from "material-ui";
 import {logout} from "../helpers/auth";
-import logo from './logo.svg';
+import Project from './Project'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const appTokenKey = "appToken"; // also duplicated in Login.js
@@ -20,13 +20,6 @@ const RenderLogOut = props =>  (
       </MuiThemeProvider>
 );
 
-const RenderProject = props => (
-        <div class="note">
-          <img src={logo} className="App-logo" alt="logo" />
-          <a href="">Link to project</a>
-        </div>
-);
-
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -37,8 +30,6 @@ export default class Home extends React.Component {
 
         //console.log("User:", this.state.firebaseUser);
         this.handleLogout = this.handleLogout.bind(this);
-        // this.renderLogOut = this.renderLogOut.bind(this);
-        // this.renderProject = this.renderProject.bind(this);
     }
 
     handleLogout() {
@@ -54,10 +45,8 @@ export default class Home extends React.Component {
 			     <div>
               <h1>List of project submitted</h1>
               <RenderLogOut/>
-              <RenderProject/>
+              <Project/>
            </div>
-
-
       );
     }
 }
