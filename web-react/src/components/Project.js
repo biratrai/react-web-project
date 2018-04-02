@@ -1,13 +1,39 @@
 import React from 'react';
 import logo from './logo.svg';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+var cardStyle = {
+   width: '50%',
+   height: '50%',
+   position: 'relative',
+   left: '0', right: '0',
+   top: '0', bottom: '0',
+   margin: 'auto',
+}
 
 export default class Project extends React.Component {
   render() {
     return (
-      <div class="note">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a href="">Link to project</a>
-      </div>
+      <MuiThemeProvider>
+        <div class="project">
+          <Card style={cardStyle}>
+            <CardHeader
+              title="URL Avatar"
+              subtitle="Subtitle"
+              avatar="images/jsa-128.jpg"
+            />
+            <CardMedia >
+              <img src={logo} alt="" />
+            </CardMedia>
+            <CardTitle title="Card title" subtitle="Card subtitle" />
+            <CardActions>
+              <FlatButton label="Favorite" />
+            </CardActions>
+          </Card>
+        </div>
+      </MuiThemeProvider>
     );
   }
 
