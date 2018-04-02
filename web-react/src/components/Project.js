@@ -27,7 +27,7 @@ export default class Project extends React.Component {
             <CardMedia >
               <img src={logo} alt="" />
             </CardMedia>
-            <CardTitle title="Card title" subtitle="Card subtitle" />
+            <CardTitle title="Pixel Art Project" subtitle={this.props.url} />
             <CardActions>
               <FlatButton label="Favorite" />
             </CardActions>
