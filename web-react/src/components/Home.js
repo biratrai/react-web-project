@@ -21,7 +21,7 @@ const RenderLogOut = props =>  (
 );
 
 const RenderProject = props => (
-        <div>
+        <div class="note">
           <img src={logo} className="App-logo" alt="logo" />
           <a href="">Link to project</a>
         </div>
