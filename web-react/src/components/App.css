@@ -22,15 +22,13 @@
   font-size: large;
 }
 
-div.note {
-    height: 150px;
-    width: 150px;
-    background-color: yellow;
-    margin: 2px 0;
-    position: relative;
-    cursor: -webkit-grab;
-    -webkit-box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
-    box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
+div.project {
+    margin: 12px 0;
+}
+
+.Card-img {
+    height:'50%';
+    width:'50%';
 }
 
 @keyframes App-logo-spin {
