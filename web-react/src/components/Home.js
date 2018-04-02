@@ -9,11 +9,12 @@ const appTokenKey = "appToken"; // also duplicated in Login.js
 const RenderLogOut = props =>  (
 
       <MuiThemeProvider>
-        <div>
+        <div class="logoutButton">
             <RaisedButton
                 backgroundColor="#a4c639"
                 labelColor="#ffffff"
                 label="Sign Out"
+
                 onTouchTap={this.handleLogout}
             />
         </div>
@@ -85,9 +86,8 @@ export default class Home extends React.Component {
     		return (
     			<Project key={i}
     				  index={i}
-    				  onChange={this.update}
-    				  onRemove={this.remove}>
-    				  {project.url}
+              url={project.url}>
+
     		    </Project>
     		)
     }
@@ -113,11 +113,9 @@ export default class Home extends React.Component {
     	return (
 			     <div>
               <h1>List of project submitted</h1>
-              <RenderLogOut/>
+              <RenderLogOut />
+              <RenderAddProject/>
               {this.state.projects.map(this.eachProject)}
-              <div >
-                <RenderAddProject/>
-              </div>
            </div>
       );
     }
