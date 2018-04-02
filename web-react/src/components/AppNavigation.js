@@ -39,7 +39,7 @@ const AppNavigation = () =>
       />
       <Route
         exact path={routes.HOME}
-        component={() => <HomePage />}
+        component={() => <HomePage count = {50} />}
       />
       <Route
         exact path={routes.ACCOUNT}
@@ -49,4 +49,3 @@ const AppNavigation = () =>
   </Router>
 
  export default AppNavigation;
-
