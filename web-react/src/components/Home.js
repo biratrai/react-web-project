@@ -3,32 +3,33 @@ import {Avatar, RaisedButton} from "material-ui";
 import {logout} from "../helpers/auth";
 import Project from './Project'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {database} from "../constants/firebaseconst";
 
 const appTokenKey = "appToken"; // also duplicated in Login.js
 
-const RenderLogOut = props =>  (
+const RenderLogOut = ({handleLogout}) =>  (
 
       <MuiThemeProvider>
-        <div class="logoutButton">
+        <div className="logoutButton">
             <RaisedButton
                 backgroundColor="#a4c639"
                 labelColor="#ffffff"
                 label="Sign Out"
 
-                onTouchTap={this.handleLogout}
+                onClick={handleLogout}
             />
         </div>
       </MuiThemeProvider>
 );
 
-const RenderAddProject = props => (
+const RenderAddProject = ({addProjectData}) => (
   <MuiThemeProvider>
     <div>
         <RaisedButton
             backgroundColor="#a4c639"
             labelColor="#ffffff"
             label="Add Project"
-            onTouchTap={this.addProject}
+            onClick={addProjectData}
         />
     </div>
   </MuiThemeProvider>
@@ -48,12 +49,28 @@ export default class Home extends React.Component {
         this.nextId = this.nextId.bind(this)
         this.update = this.update.bind(this)
         this.eachProject = this.eachProject.bind(this)
+        this.writeProjectData = this.writeProjectData.bind(this)
+        this.renderForm = this.renderForm.bind(this)
+        this.addProjectData = this.addProjectData.bind(this)
     }
 
     componentWillMount() {
 
       var self = this
       console.log('Component Will Mount')
+      const databaseRef = database.ref('projects').orderByKey()
+      databaseRef.on('value', snapshot => {
+         console.log(snapshot.val());
+      });
+      // databaseRef.once('value', snapshot => {
+      //   snapshot.forEach(child =>{
+      //       id: this.state.id
+      //       console.log(id)
+      //
+      //       // url: this.state.url,
+      //       // image: this.state.image,
+      //
+      //   });
       console.log(this.props.count)
 		    if(this.props.count) {
 			       fetch(`https://baconipsum.com/api/?type=all-meat&sentences=${this.props.count}`)
@@ -71,12 +88,34 @@ export default class Home extends React.Component {
             {
               id: this.nextId(),
               url: text,
-              image: 'project.png'
+              image: 'project.png',
+              userName: 'userName',
+              profilePic: 'profilePic'
             }
           ]
         }))
+        // this.writeProjectData(this.nextId(), text, 'project.png', 'userName','profilePic')
+
     }
 
+    addProjectData() {
+      console.log("Addd project Data")
+      alert("Add")
+    }
+
+    writeProjectData(id, url, image, userName, profilePic) {
+        const databaseRef = database.ref('projects');
+
+        const project = {
+            id: id,
+            url: url,
+            image: image,
+            profilePic : profilePic,
+            userName : userName
+        }
+
+        databaseRef.push(project);
+    }
     nextId() {
     		this.uniqueId = this.uniqueId || 0
     		return this.uniqueId++
@@ -109,12 +148,23 @@ export default class Home extends React.Component {
         });
     }
 
+    renderForm() {
+      return (
+        <div>
+          <form>
+            <textarea placeholder="Enter your pencode url here."/>
+            <button>Submit</button>
+          </form>
+        </div>
+      )
+    }
+
 	render() {
     	return (
 			     <div>
               <h1>List of project submitted</h1>
-              <RenderLogOut />
-              <RenderAddProject/>
+              <RenderLogOut handleLogout={this.handleLogout}/>
+              <RenderAddProject addProjectData={this.addProjectData}/>
               {this.state.projects.map(this.eachProject)}
            </div>
       );
