@@ -17,7 +17,7 @@ export default class Project extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div class="project">
+        <div className="project">
           <Card style={cardStyle}>
             <CardHeader
               title="URL Avatar"
