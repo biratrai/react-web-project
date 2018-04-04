@@ -1,7 +1,7 @@
 import React from 'react';
 import {database} from "../constants/firebaseconst";
 
-const SignOut = () =>
+const RenderForm = () => (
   <div>
     <h1>Please add project</h1>
 
@@ -11,5 +11,19 @@ const SignOut = () =>
       </form>
 
   </div>
+)
 
-export default SignOut;
+export default  class AddProject extends React.Component {
+  componentWillMount() {
+    console.log('Add Project Component Will Mount')
+  }
+
+
+  render(){
+    return (
+        <div>
+          <RenderForm/>
+        </div>
+    )
+  }
+}
