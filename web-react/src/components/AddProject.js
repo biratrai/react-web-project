@@ -25,7 +25,7 @@ export default  class AddProject extends React.Component {
       super();
       this.state = {
          url : '',
-         image : ''
+         image : null
       };
 
       this.handleUrlChange = this.handleUrlChange.bind(this);
@@ -43,10 +43,12 @@ export default  class AddProject extends React.Component {
   }
 
   handleImageChange (evt) {
-    this.setState({ image: evt.target.value });
+    this.setState({ image: evt.target.files[0] });
+    console.log("image: "+ evt.target.files[0]);
   }
 
   addToFirebase (evt){
+    evt.preventDefault();
     console.log("add to firebase");
     console.log("Url: "+this.state.url);
     console.log("screenshot: "+this.state.screenshot);
@@ -63,7 +65,7 @@ export default  class AddProject extends React.Component {
             <br/>
             <br/>
             <label> Screen shot: </label>
-            <input type="text" name="image" placeholder="Upload screenshot" value={this.state.image} onChange={this.handleImageChange}/>
+            <input type="file" name="image" placeholder="Upload screenshot" value={this.state.image} onChange={this.handleImageChange}/>
             <br/>
             <br/>
             <button onClick={this.addToFirebase}>Submit</button>
