@@ -65,6 +65,19 @@ export default  class AddProject extends React.Component {
     console.log("url: "+ this.urlLink.value)
     console.log('fils: '+ this.uploadInput.files[0])
     console.log("screenshot: "+this.state.screenshot);
+
+    const databaseRef = database.ref('projects');
+
+    const project = {
+      id: 'id',
+      url: 'https://codepen.io/LeafDragon/full/vdvXdO/',
+      image: 'image',
+      profilePic : 'profilePic',
+      userName : 'userName'
+    }
+
+    databaseRef.push(project);
+
   }
 
   render(){
