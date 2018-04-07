@@ -24,10 +24,11 @@ export default class Project extends React.Component {
               subtitle="Subtitle"
               avatar="images/jsa-128.jpg"
             />
-            <CardMedia >
-              <img src={logo} alt="" />
+            <CardMedia className="thumbnail">
+              <iframe src={this.props.url} frameborder="0"></iframe>
             </CardMedia>
-            <CardTitle title="Pixel Art Project" subtitle={this.props.url} />
+            // <CardTitle title="Pixel Art Project" subtitle={this.props.url} />
+
             <CardActions>
               <FlatButton label="Favorite" />
             </CardActions>
