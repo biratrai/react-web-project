@@ -61,6 +61,14 @@ export default class Home extends React.Component {
       const databaseRef = database.ref('projects').orderByKey()
       databaseRef.on('value', snapshot => {
          console.log(snapshot.val());
+
+         snapshot.forEach(function(childSnapshot) {
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            console.log('ChildData: '+ childData.url);
+            // ...
+            self.addProject(childData.url);
+        });
       });
       // databaseRef.once('value', snapshot => {
       //   snapshot.forEach(child =>{
@@ -71,14 +79,14 @@ export default class Home extends React.Component {
       //       // image: this.state.image,
       //
       //   });
-      console.log(this.props.count)
-		    if(this.props.count) {
-			       fetch(`https://baconipsum.com/api/?type=all-meat&sentences=${this.props.count}`)
-				         .then(response => response.json())
-				             .then(json => json[0]
-								               .split('. ')
-								               .forEach(sentence => self.addProject(sentence.substring(0, 25))))
-		    }
+      // console.log(this.props.count)
+		    // if(this.props.count) {
+			  //      fetch(`https://baconipsum.com/api/?type=all-meat&sentences=${this.props.count}`)
+				//          .then(response => response.json())
+				//              .then(json => json[0]
+				// 				               .split('. ')
+				// 				               .forEach(sentence => self.addProject(sentence.substring(0, 25))))
+		    // }
     }
 
     addProject(text) {
@@ -100,7 +108,7 @@ export default class Home extends React.Component {
 
     addProjectData() {
       console.log("Addd project Data")
-      alert("Add")
+      this.renderForm()
     }
 
     writeProjectData(id, url, image, userName, profilePic) {
@@ -164,7 +172,6 @@ export default class Home extends React.Component {
 			     <div>
               <h1>List of project submitted</h1>
               <RenderLogOut handleLogout={this.handleLogout}/>
-              <RenderAddProject addProjectData={this.addProjectData}/>
               {this.state.projects.map(this.eachProject)}
            </div>
       );
