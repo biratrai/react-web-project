@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {Avatar, RaisedButton} from "material-ui";
 import * as routes from '../constants/routes';
 
 const Navigation = () =>
