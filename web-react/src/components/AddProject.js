@@ -75,25 +75,25 @@ export default  class AddProject extends React.Component {
       userName : this.state.userName
     }
 
-    // databaseRef.push(project);
-
   }
+
+
 
   render(){
     return (
       <div>
-          <Login  callbackFromParent={this.loginCallBack}/>
-        <div>
-          <h1>Please add project</h1>
+        <h1 className="App">Please add project</h1>
+        <Login  className= "logoutButton" callbackFromParent={this.loginCallBack}/>
+        <br/>
+        <br/>
+        <form>
+          <label> Pencode url: </label>
+          <input type="text" name="url" placeholder="Enter url" ref={(ref) => { this.urlLink = ref; }}/>
+          <br/>
 
-            <form>
-              <label> Pencode url: </label>
-              <input type="text" name="url" placeholder="Enter url" ref={(ref) => { this.urlLink = ref; }}/>
-              <br/>
+          <button onClick={this.addToFirebase}>Submit</button>
+        </form>
 
-              <button onClick={this.addToFirebase}>Submit</button>
-            </form>
-          </div>
       </div>
     )
   }
