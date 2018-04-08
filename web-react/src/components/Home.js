@@ -16,6 +16,7 @@ export default class Home extends React.Component {
         this.update = this.update.bind(this)
         this.eachProject = this.eachProject.bind(this)
         this.writeProjectData = this.writeProjectData.bind(this)
+        this.loginCallBack = this.loginCallBack.bind(this)
     }
 
     componentWillMount() {
@@ -31,22 +32,23 @@ export default class Home extends React.Component {
             var childData = childSnapshot.val();
             console.log('ChildData: '+ childData.url);
 
-            self.addProject(childData.url);
+            self.addProject(childData.url, childData.profilePic, childData.userName);
         });
       });
     }
 
-    addProject(text) {
-      console.log('text '+ text);
+    addProject(url, profilePic, userName) {
+      console.log('addProject url: '+ url);
+      console.log('addProject userName: '+ userName)
         this.setState(prevState => ({
           projects: [
             ...prevState.projects,
             {
               id: this.nextId(),
-              url: text,
+              url: url,
               image: 'project.png',
-              userName: 'userName',
-              profilePic: 'profilePic'
+              userName: userName,
+              profilePic: profilePic
             }
           ]
         }))
@@ -78,13 +80,19 @@ export default class Home extends React.Component {
     }
 
     eachProject(project, i) {
+      console.log('eachProject userName: '+ project.userName)
     		return (
     			<Project key={i}
     				  index={i}
-              url={project.url}>
-
+              url={project.url}
+              userName={project.userName}
+              profilePic={project.profilePic}>
     		    </Project>
     		)
+    }
+
+    loginCallBack = (dataFromChild) => {
+        console.log('loginCallBack dataFromChild : '+ dataFromChild)
     }
 
     update(newText, i) {
@@ -101,7 +109,7 @@ export default class Home extends React.Component {
 			     <div>
               <h1>List of project submitted</h1>
 
-              <Login  history={this.props.createHashHistory}/>
+              <Login  callbackFromParent={this.loginCallBack}/>
               {this.state.projects.map(this.eachProject)}
            </div>
       );
