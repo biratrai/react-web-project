@@ -1,8 +1,5 @@
 import React from 'react';
-import {Avatar, RaisedButton} from "material-ui";
-import {logout} from "../helpers/auth";
 import Project from './Project'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {database} from "../constants/firebaseconst";
 import Login from './SignIn'
 
@@ -24,30 +21,23 @@ export default class Home extends React.Component {
     componentWillMount() {
 
       var self = this
-      console.log('Component Will Mount')
       const databaseRef = database.ref('projects').orderByKey()
+      console.log('Component Will Mount '+ databaseRef)
       databaseRef.on('value', snapshot => {
-         console.log(snapshot.val());
+         console.log('snapshot.val -> '+snapshot.val());
 
          snapshot.forEach(function(childSnapshot) {
             var childKey = childSnapshot.key;
             var childData = childSnapshot.val();
             console.log('ChildData: '+ childData.url);
-            // ...
+
             self.addProject(childData.url);
         });
       });
-      // console.log(this.props.count)
-		    // if(this.props.count) {
-			  //      fetch(`https://baconipsum.com/api/?type=all-meat&sentences=${this.props.count}`)
-				//          .then(response => response.json())
-				//              .then(json => json[0]
-				// 				               .split('. ')
-				// 				               .forEach(sentence => self.addProject(sentence.substring(0, 25))))
-		    // }
     }
 
     addProject(text) {
+      console.log('text '+ text);
         this.setState(prevState => ({
           projects: [
             ...prevState.projects,
