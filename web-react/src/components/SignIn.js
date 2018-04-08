@@ -69,10 +69,9 @@ export default class Login extends React.Component {
       }
       return (
         <div>
-          <h1>My App</h1>
-          <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+          <p className="App">Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
           <MuiThemeProvider>
-            <div className="signInButton">
+            <div className="logoutButton">
                 <RaisedButton
                     backgroundColor="#a4c639"
                     labelColor="#ffffff"
