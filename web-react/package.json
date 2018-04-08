@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/react-fontawesome": "0.0.18",
     "ajv": "^6.4.0",
     "firebase": "^4.12.1",
     "material-ui": "^0.20.0",
     "prop-types": "^15.6.1",
-    "react": "^16.2.0",
+    "react": "^16.3.1",
     "react-dom": "^16.2.0",
+    "react-fa": "^5.0.0",
+    "react-firebaseui": "^1.2.3",
+    "react-fontawesome": "^1.6.1",
+    "react-icons": "^2.2.7",
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
