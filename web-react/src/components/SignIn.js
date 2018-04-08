@@ -40,8 +40,13 @@ export default class Login extends React.Component {
     componentDidMount() {
       console.log('Sinin componentDidMount')
       this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
-          (user) => this.setState({isSignedIn: !!user})
+          (user) => {this.setState({
+            isSignedIn: !!user
+          })
+          this.props.callbackFromParent(firebase.auth().currentUser);
+        }
         );
+
     }
     // Make sure we un-register Firebase observers when the component unmounts.
     componentWillUnmount() {
@@ -51,6 +56,7 @@ export default class Login extends React.Component {
 
     handleLogout() {
         firebase.auth().signOut();
+        this.props.callbackFromParent(firebase.auth().currentUser);
     }
 
     render() {
