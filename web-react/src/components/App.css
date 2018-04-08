@@ -31,6 +31,10 @@ div.logoutButton {
   background-color: red;
 }
 
+div.signInButton {
+  float : left;
+}
+
 .thumbnail iframe {
   width: 1440px;
   height: 600px;
