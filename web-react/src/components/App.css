@@ -23,7 +23,12 @@
 }
 
 div.project {
-    margin: 12px 0;
+  margin: 12px 0;
+}
+
+div.headerStyle {
+  width:100%;
+  text-align: center;
 }
 
 div.logoutButton {
