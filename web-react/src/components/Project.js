@@ -16,22 +16,18 @@ var cardStyle = {
 export default class Project extends React.Component {
   render() {
     return (
+
       <MuiThemeProvider>
         <div className="project">
           <Card style={cardStyle}>
             <CardHeader
-              title="URL Avatar"
-              subtitle="Subtitle"
-              avatar="images/jsa-128.jpg"
+              title= {""+this.props.userName}
+              avatar={""+this.props.profilePic}
             />
             <CardMedia className="thumbnail">
               <iframe src={this.props.url} frameborder="0"></iframe>
             </CardMedia>
-            // <CardTitle title="Pixel Art Project" subtitle={this.props.url} />
-
-            <CardActions>
-              <FlatButton label="Favorite" />
-            </CardActions>
+          
           </Card>
         </div>
       </MuiThemeProvider>
