@@ -4,54 +4,21 @@ import {logout} from "../helpers/auth";
 import Project from './Project'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {database} from "../constants/firebaseconst";
-
-const appTokenKey = "appToken"; // also duplicated in Login.js
-
-const RenderLogOut = ({handleLogout}) =>  (
-
-      <MuiThemeProvider>
-        <div className="logoutButton">
-            <RaisedButton
-                backgroundColor="#a4c639"
-                labelColor="#ffffff"
-                label="Sign Out"
-
-                onClick={handleLogout}
-            />
-        </div>
-      </MuiThemeProvider>
-);
-
-const RenderAddProject = ({addProjectData}) => (
-  <MuiThemeProvider>
-    <div>
-        <RaisedButton
-            backgroundColor="#a4c639"
-            labelColor="#ffffff"
-            label="Add Project"
-            onClick={addProjectData}
-        />
-    </div>
-  </MuiThemeProvider>
-)
+import Login from './SignIn'
 
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            //firebaseUser: JSON.parse(localStorage.getItem("firebaseUser"))
             projects : []
         };
 
         //console.log("User:", this.state.firebaseUser);
-        this.handleLogout = this.handleLogout.bind(this);
         this.nextId = this.nextId.bind(this)
         this.update = this.update.bind(this)
         this.eachProject = this.eachProject.bind(this)
         this.writeProjectData = this.writeProjectData.bind(this)
-        this.renderForm = this.renderForm.bind(this)
-        this.addProjectData = this.addProjectData.bind(this)
     }
 
     componentWillMount() {
@@ -70,15 +37,6 @@ export default class Home extends React.Component {
             self.addProject(childData.url);
         });
       });
-      // databaseRef.once('value', snapshot => {
-      //   snapshot.forEach(child =>{
-      //       id: this.state.id
-      //       console.log(id)
-      //
-      //       // url: this.state.url,
-      //       // image: this.state.image,
-      //
-      //   });
       // console.log(this.props.count)
 		    // if(this.props.count) {
 			  //      fetch(`https://baconipsum.com/api/?type=all-meat&sentences=${this.props.count}`)
@@ -148,30 +106,12 @@ export default class Home extends React.Component {
     		}))
     }
 
-    handleLogout() {
-        logout().then(function () {
-            localStorage.removeItem(appTokenKey);
-            this.props.history.push("/login");
-            console.log("user signed out from firebase");
-        });
-    }
-
-    renderForm() {
-      return (
-        <div>
-          <form>
-            <textarea placeholder="Enter your pencode url here."/>
-            <button>Submit</button>
-          </form>
-        </div>
-      )
-    }
-
 	render() {
     	return (
 			     <div>
               <h1>List of project submitted</h1>
-              <RenderLogOut handleLogout={this.handleLogout}/>
+
+              <Login  history={this.props.createHashHistory}/>
               {this.state.projects.map(this.eachProject)}
            </div>
       );
