@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom';
 
 import Navigation from './Navigation';
-import SignInPage from './SignIn';
 import AddProject from './AddProject';
 import HomePage from './Home';
 
