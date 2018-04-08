@@ -57,7 +57,7 @@ export default class Login extends React.Component {
       if (!this.state.isSignedIn) {
         return (
           <div className="signInButton">
-            <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
+            <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseAuth}/>
           </div>
         );
       }
