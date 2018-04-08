@@ -3,81 +3,79 @@ import {FontIcon, RaisedButton} from "material-ui";
 import {loginWithGoogle} from "../helpers/auth";
 import {firebaseAuth} from "../constants/firebaseconst";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-const firebaseAuthKey = "firebaseAuthInProgress";
-const appTokenKey = "appToken";
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebase from 'firebase';
 
 export default class Login extends React.Component {
 
     constructor(props) {
         super(props);
+        // The component's Local state.
         this.state = {
-            splashScreen: false
+          isSignedIn: false // Local signed-in state.
         };
 
-        this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
-    handleGoogleLogin() {
-        loginWithGoogle()
-            .catch(function (error) {
-                alert(error); // or show toast
-                localStorage.removeItem(firebaseAuthKey);
-            });
-        localStorage.setItem(firebaseAuthKey, "1");
-    }
+    uiConfig = {
+      // Popup signin flow rather than redirect flow.
+      signInFlow: 'popup',
+      // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+      signInSuccessUrl: '/signedIn',
+      // We will display Google and Facebook as auth providers.
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      ],
+      callbacks: {
+          // Avoid redirects after sign-in.
+          signInSuccess: () => false
+        }
+    };
 
     componentWillMount() {
-        /**
-         * We have appToken relevant for our backend API
-         */
-        if (localStorage.getItem(appTokenKey)) {
-            this.props.history.push("/app/home");
-            return;
-        }
+      console.log('Sinin componentWillMount')
+    }
+    // Listen to the Firebase Auth state and set the local state.
+    componentDidMount() {
+      console.log('Sinin componentDidMount')
+      this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
+          (user) => this.setState({isSignedIn: !!user})
+        );
+    }
+    // Make sure we un-register Firebase observers when the component unmounts.
+    componentWillUnmount() {
+      console.log('Sinin componentWillUnmount')
+      this.unregisterAuthObserver();
+    }
 
-        firebaseAuth().onAuthStateChanged(user => {
-            if (user) {
-                console.log("User signed in: ", JSON.stringify(user));
-
-                localStorage.removeItem(firebaseAuthKey);
-
-                // here you could authenticate with you web server to get the
-                // application specific token so that you do not have to
-                // authenticate with firebase every time a user logs in
-                localStorage.setItem(appTokenKey, user.uid);
-
-                // store the token
-                this.props.history.push("/app/home")
-            }
-        });
+    handleLogout() {
+        firebase.auth().signOut();
     }
 
     render() {
-        console.log(firebaseAuthKey + "=" + localStorage.getItem(firebaseAuthKey));
-        if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
-        return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
+      if (!this.state.isSignedIn) {
+        return (
+          <div className="signInButton">
+            <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
+          </div>
+        );
+      }
+      return (
+        <div>
+          <h1>My App</h1>
+          <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+          <MuiThemeProvider>
+            <div className="signInButton">
+                <RaisedButton
+                    backgroundColor="#a4c639"
+                    labelColor="#ffffff"
+                    label="Sign Out"
+                    onClick={this.handleLogout}
+                />
+            </div>
+          </MuiThemeProvider>
+        </div>
+      );
     }
 }
-
-const iconStyles = {
-    color: "#ffffff"
-};
-
-const LoginPage = ({handleGoogleLogin}) => (
-    <div>
-        <h1>Login</h1>
-        <div>
-         	<MuiThemeProvider>
-            	<RaisedButton
-	                label="Sign in with Google"
-	                labelColor={"#ffffff"}
-	                backgroundColor="#dd4b39"
-	                icon={<FontIcon className="fa fa-google-plus" style={iconStyles}/>}
-	                onClick={handleGoogleLogin}
-            	/>
-        	</MuiThemeProvider>
-        </div>
-    </div>
-);
-const SplashScreen = () => (<p>Loading...</p>)
