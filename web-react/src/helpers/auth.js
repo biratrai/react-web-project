@@ -2,9 +2,7 @@ import {firebaseAuth, googleProvider} from "../constants/firebaseconst";
 
 export function loginWithGoogle() {
     return firebaseAuth().signInWithRedirect(googleProvider);
-    //return authenticate(loginWithFirebase(googleProvider));
 }
-
 
 function authenticate(promise) {
     return promise
