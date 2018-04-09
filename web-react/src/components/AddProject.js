@@ -64,16 +64,20 @@ export default  class AddProject extends React.Component {
     if(typeof this.state.userName === 'undefined'){
       alert('Not signed in. Please log in to submit.')
       return;
-    }
-    const databaseRef = database.ref('projects');
+    } else {
+      const databaseRef = database.ref('projects');
 
-    const project = {
-      id: 'id',
-      url: this.urlLink.value,
-      image: 'image',
-      profilePic : this.state.profilePic,
-      userName : this.state.userName
+      const project = {
+        id: 'id',
+        url: this.urlLink.value,
+        image: 'image',
+        profilePic : this.state.profilePic,
+        userName : this.state.userName
+      }
+      databaseRef.push(project);
+
     }
+
 
   }
 
