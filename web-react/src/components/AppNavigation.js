@@ -13,18 +13,7 @@ import * as routes from '../constants/routes';
 const AppNavigation = () =>
   <Router>
     <div>
-      <Navigation />
-      <hr/>
-      <Route
-        exact path={routes.ADD_PROJECT}
-        component={() => <AddProject />}
-      />
-
-      <Route
-        exact path={routes.HOME}
-        component={() => <HomePage count = {50} />}
-      />
-
+      <Navigation />    
     </div>
   </Router>
 
