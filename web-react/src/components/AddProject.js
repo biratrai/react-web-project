@@ -77,8 +77,6 @@ export default  class AddProject extends React.Component {
 
   }
 
-
-
   render(){
     return (
       <div>
