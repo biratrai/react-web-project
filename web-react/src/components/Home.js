@@ -11,9 +11,7 @@ export default class Home extends React.Component {
             projects : []
         };
 
-        //console.log("User:", this.state.firebaseUser);
         this.nextId = this.nextId.bind(this)
-        this.update = this.update.bind(this)
         this.eachProject = this.eachProject.bind(this)
         this.writeProjectData = this.writeProjectData.bind(this)
         this.loginCallBack = this.loginCallBack.bind(this)
@@ -93,15 +91,6 @@ export default class Home extends React.Component {
 
     loginCallBack = (dataFromChild) => {
         console.log('loginCallBack dataFromChild : '+ dataFromChild)
-    }
-
-    update(newText, i) {
-    		console.log('updating item at index', i, newText)
-    		this.setState(prevState => ({
-    			projects: prevState.projects.map(
-    				project => (project.id !== i) ? project : {...project, project: newText}
-    			)
-    		}))
     }
 
 	render() {
