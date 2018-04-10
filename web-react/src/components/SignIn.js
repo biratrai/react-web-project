@@ -1,6 +1,5 @@
 import React from 'react';
-import {FontIcon, RaisedButton} from "material-ui";
-import {loginWithGoogle} from "../helpers/auth";
+import { RaisedButton} from "material-ui";
 import {firebaseAuth} from "../constants/firebaseconst";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
