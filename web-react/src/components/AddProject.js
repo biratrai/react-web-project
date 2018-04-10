@@ -1,7 +1,6 @@
 import React from 'react';
 import {database} from "../constants/firebaseconst";
 import {firebaseAuth} from "../constants/firebaseconst";
-import firebase from 'firebase';
 import Login from './SignIn'
 
 export default  class AddProject extends React.Component {
@@ -75,7 +74,7 @@ export default  class AddProject extends React.Component {
         userName : this.state.userName
       }
       databaseRef.push(project);
-
+      alert('Your project has been uploaded successfully.')
     }
 
 
